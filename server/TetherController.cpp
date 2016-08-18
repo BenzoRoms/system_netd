@@ -231,7 +231,7 @@ int TetherController::setDnsForwarders(unsigned netId, char **servers, int numSe
     fwmark.protectedFromVpn = true;
     fwmark.permission = PERMISSION_SYSTEM;
 
-    snprintf(daemonCmd, sizeof(daemonCmd), "update_dns:0x%x", fwmark.intValue);
+    snprintf(daemonCmd, sizeof(daemonCmd), "update_dns|0x%x", fwmark.intValue);
     int cmdLen = strlen(daemonCmd);
 
     mDnsForwarders->clear();
@@ -252,7 +252,7 @@ int TetherController::setDnsForwarders(unsigned netId, char **servers, int numSe
             break;
         }
 
-        strcat(daemonCmd, ":");
+        strcat(daemonCmd, "|");
         strcat(daemonCmd, servers[i]);
         mDnsForwarders->push_back(a);
     }
@@ -292,7 +292,7 @@ int TetherController::applyDnsInterfaces() {
             break;
         }
 
-        strcat(daemonCmd, ":");
+        strcat(daemonCmd, "|");
         strcat(daemonCmd, *it);
         haveInterfaces = true;
     }
